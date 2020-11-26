@@ -5,4 +5,9 @@ copy_test_file_base:
     - mode: 0644
     - user: root
     - group: root
+    - template: jinja
+    - defaults:
+        master: 'titi'
+        hostname: 'toto'
+        
  
