@@ -1,0 +1,57 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+#V_BOX = 'ubuntu/focal64' ## VirtuamBox
+#V_NODES = 3
+V_NODES = ['minion1','minion2', 'minion3']
+#V_NODES = ['sqlsrv1', 'mysql1', 'apache1']
+V_BOX = 'abi/ubuntu2004' ## KVM
+V_NAME = 'minion'
+V_MEM = 2048
+V_CPUS = 2
+V_CONF_PATH = '/srv/salt/vagrant'
+V_KEY_PATH = '/srv/salt/vagrant/tmp'
+V_PKI_PATH = '/etc/salt/pki/master/minions'
+V_MINION_PKI_PATH = '/etc/salt/pki/minion'
+
+# salt-vagrant config
+Vagrant.configure(2) do |config|
+  V_NODES.each do |node|
+    config.vm.box = V_BOX
+    #puts "==== Node: #{node}"
+    config.vm.define vm_name = node do |n|
+      n.vm.provider "libvirt" do |libvirt|
+        libvirt.driver = "kvm"
+        libvirt.memory = V_MEM
+        libvirt.cpus = V_CPUS
+      end
+
+      n.vm.hostname = node
+      n.vm.network "private_network", type: "dhcp"
+      n.vm.provision "file", source: "#{V_CONF_PATH}/bootstrap_salt.sh", destination: "/tmp/bootstrap_salt.sh"
+
+      n.trigger.before :up, :provision do |trigger|
+        trigger.info = "Creating salt key pairs for node #{node}..."
+        trigger.run = {inline: "#{V_CONF_PATH}/genkey_salt.sh #{node} #{V_PKI_PATH}"}
+      end
+
+      n.vm.provision "shell", inline: <<-SHELL
+        if ! grep -q ' salt' /etc/hosts >> /dev/null;then echo '192.168.5.61 salt' >> /etc/hosts;fi;
+        chmod +x /tmp/bootstrap_salt.sh
+        . /tmp/bootstrap_salt.sh
+      SHELL
+
+      n.vm.provision "salt" do |salt|
+        salt.minion_config = "#{V_CONF_PATH}/minion"
+        salt.minion_key = "#{V_KEY_PATH}/#{node}.pem"
+        salt.minion_pub = "#{V_KEY_PATH}/#{node}.pub"
+        salt.run_highstate = true
+      end
+
+      n.trigger.after :up, :provision do |trigger|
+        trigger.info = "Removing temp files for node #{node}..."
+        trigger.run = {inline: "#{V_CONF_PATH}/post_bootstrap_salt.sh #{node}"}
+      end
+    end
+  end
+end
