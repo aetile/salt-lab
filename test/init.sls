@@ -6,8 +6,8 @@ copy_test_file_base:
     - user: root
     - group: root
     - template: jinja
-    - defaults:
-        master: 'titi'
-        hostname: 'toto'
+    #- defaults:
+    #    master: 'titi'
+    #    hostname: 'toto'
         
  

@@ -1,4 +1,4 @@
-{% if grains[os] == 'Ubuntu' %}
+{% if grains['os'] == 'Ubuntu' %}
 apache2:
   pkg:
     - installed
