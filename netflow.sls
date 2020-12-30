@@ -1,5 +1,5 @@
-{% set hostname = grains['host'] | lowercase %}
-{% set targets = pillar['netflow'][hostname] %}
+{% set hostname = grains['host'] %}
+{% set targets = pillar['netflow'][hostname.lower()] %}
 {% for socket in targets %}
 Port opening from {{ hostname }} to {{ socket[0] }} {{ socket[1] }} :
   cmd.run:
