@@ -1,6 +1,7 @@
 base:
   '*':
     - test
+    - netflow
 
 dev:
   'os:Ubuntu':

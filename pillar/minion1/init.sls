@@ -1,3 +1,3 @@
 role: db
-master: test_master
-hostname: test_host
+master: master
+hostname: db1

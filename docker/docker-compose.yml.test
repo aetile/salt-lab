@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  master:
+    image: aetile/salt-master:1.0
+    container_name: master
+    logging:
+      driver: "syslog"
+    ports:
+      - "4505"
+    stdin_open: true
+    tty: true
+  minion1:
+    image: aetile/salt-minion:1.0
+    container_name: minion1
+    hostname: minion1
+    logging:
+      driver: "syslog"
+    stdin_open: true
+    tty: true
+    extra_hosts: [ "salt:192.168.121.1", "salt:172.28.128.1" ]
+    depends_on:
+      - master
+  minion2:
+    image: aetile/salt-minion:1.0
+    container_name: minion2
+    hostname: minion2
+    logging:
+      driver: "syslog"
+    stdin_open: true
+    tty: true
+    extra_hosts: [ "salt:192.168.121.1", "salt:172.28.128.1" ]
+    depends_on:
+      - master
+  minion3:
+    image: aetile/salt-minion:1.0
+    container_name: minion3
+    hostname: minion3
+    logging:
+      driver: "syslog"
+    stdin_open: true
+    tty: true
+    extra_hosts: [ "salt:192.168.121.1", "salt:172.28.128.1" ]
+    depends_on:
+      - master
