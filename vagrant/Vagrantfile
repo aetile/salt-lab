@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-V_NODES = ['minion1','minion2', 'minion3']
+V_NODES = ['minion1','minion2', 'minion3', 'minion4']
 #V_NODES = ['sqlsrv1', 'mysql1', 'apache1']
 V_BOX = 'abi/ubuntu2004' ## KVM
 #V_BOX = 'aetile/salt-minion:1.0' ## KVM

@@ -1,0 +1,167 @@
+minion2:
+----------
+          ID: Port opening from minion2 to 192.168.5.61 tcp/22
+    Function: cmd.run
+        Name: telnet 192.168.5.61 22
+      Result: False
+     Comment: Command "telnet 192.168.5.61 22" run
+     Started: 17:14:38.408408
+    Duration: 15.997 ms
+     Changes:   
+              ----------
+              pid:
+                  12082
+              retcode:
+                  1
+              stderr:
+                  Connection closed by foreign host.
+              stdout:
+                  Trying 192.168.5.61...
+                  Connected to 192.168.5.61.
+                  Escape character is '^]'.
+----------
+          ID: Port opening from minion2 to 192.168.5.61 tcp/22
+    Function: module.run
+        Name: network.connect
+      Result: True
+     Comment: Module function network.connect executed
+     Started: 17:14:38.426638
+    Duration: 4.374 ms
+     Changes:   
+              ----------
+              ret:
+                  ----------
+                  comment:
+                      Successfully connected to 192.168.5.61 (192.168.5.61) on tcp port 22
+                  result:
+                      True
+----------
+          ID: Port opening from minion2 to 192.168.5.61 tcp/80
+    Function: cmd.run
+        Name: telnet 192.168.5.61 80
+      Result: False
+     Comment: Command "telnet 192.168.5.61 80" run
+     Started: 17:14:38.431437
+    Duration: 12.383 ms
+     Changes:   
+              ----------
+              pid:
+                  12084
+              retcode:
+                  1
+              stderr:
+                  telnet: Unable to connect to remote host: Connection refused
+              stdout:
+                  Trying 192.168.5.61...
+----------
+          ID: Port opening from minion2 to 192.168.5.61 tcp/80
+    Function: module.run
+        Name: network.connect
+      Result: False
+     Comment: Module function network.connect executed
+     Started: 17:14:38.444231
+    Duration: 2.239 ms
+     Changes:   
+              ----------
+              ret:
+                  ----------
+                  comment:
+                      Unable to connect to 192.168.5.61 (192.168.5.61) on tcp port 80
+                  result:
+                      False
+
+Summary for minion2
+------------
+Succeeded: 1 (changed=4)
+Failed:    3
+------------
+Total states run:     4
+Total run time:  34.993 ms
+minion3:
+
+Summary for minion3
+-----------
+Succeeded: 0
+Failed:   0
+-----------
+Total states run:    0
+Total run time:  0.000 ms
+minion1:
+----------
+          ID: Port opening from minion1 to 192.168.5.61 tcp/22
+    Function: cmd.run
+        Name: telnet 192.168.5.61 22
+      Result: False
+     Comment: Command "telnet 192.168.5.61 22" run
+     Started: 17:14:39.410724
+    Duration: 17.907 ms
+     Changes:   
+              ----------
+              pid:
+                  12000
+              retcode:
+                  1
+              stderr:
+                  Connection closed by foreign host.
+              stdout:
+                  Trying 192.168.5.61...
+                  Connected to 192.168.5.61.
+                  Escape character is '^]'.
+----------
+          ID: Port opening from minion1 to 192.168.5.61 tcp/22
+    Function: module.run
+        Name: network.connect
+      Result: True
+     Comment: Module function network.connect executed
+     Started: 17:14:39.431383
+    Duration: 10.834 ms
+     Changes:   
+              ----------
+              ret:
+                  ----------
+                  comment:
+                      Successfully connected to 192.168.5.61 (192.168.5.61) on tcp port 22
+                  result:
+                      True
+----------
+          ID: Port opening from minion1 to 192.168.5.61 tcp/80
+    Function: cmd.run
+        Name: telnet 192.168.5.61 80
+      Result: False
+     Comment: Command "telnet 192.168.5.61 80" run
+     Started: 17:14:39.442431
+    Duration: 10.51 ms
+     Changes:   
+              ----------
+              pid:
+                  12002
+              retcode:
+                  1
+              stderr:
+                  telnet: Unable to connect to remote host: Connection refused
+              stdout:
+                  Trying 192.168.5.61...
+----------
+          ID: Port opening from minion1 to 192.168.5.61 tcp/80
+    Function: module.run
+        Name: network.connect
+      Result: False
+     Comment: Module function network.connect executed
+     Started: 17:14:39.453262
+    Duration: 2.136 ms
+     Changes:   
+              ----------
+              ret:
+                  ----------
+                  comment:
+                      Unable to connect to 192.168.5.61 (192.168.5.61) on tcp port 80
+                  result:
+                      False
+
+Summary for minion1
+------------
+Succeeded: 1 (changed=4)
+Failed:    3
+------------
+Total states run:     4
+Total run time:  41.387 ms
