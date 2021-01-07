@@ -1,59 +1,27 @@
 version: '3.8'
 
 services:
-  master:
-    image: aetile/salt-master-secured:1.0
-    container_name: master
-    hostname: master
-    ports:
-      - "4505:4505"
-      - "4506:4506"
-    stdin_open: true
-    tty: true
-    networks:
-      vpcbr:
-        ipv4_address: 172.20.0.11
   minion1:
     image: aetile/salt-minion-secured:1.0
     container_name: minion1
     hostname: minion1
     stdin_open: true
     tty: true
-    extra_hosts: [ "salt:172.20.0.11" ]
-    depends_on:
-      - master
-    networks:
-      vpcbr:
-        ipv4_address: 172.20.0.12
+    extra_hosts: [ "salt:${MASTER_IP}" ]
+    network_mode: bridge
   minion2:
     image: aetile/salt-minion-secured:1.0
     container_name: minion2
     hostname: minion2
     stdin_open: true
     tty: true
-    extra_hosts: [ "salt:172.20.0.11" ]
-    depends_on:
-      - master
-    networks:
-      vpcbr:
-        ipv4_address: 172.20.0.13
+    extra_hosts: [ "salt:${MASTER_IP}" ]
+    network_mode: bridge
   minion3:
     image: aetile/salt-minion-secured:1.0
     container_name: minion3
     hostname: minion3
     stdin_open: true
     tty: true
-    extra_hosts: [ "salt:172.20.0.11" ]
-    depends_on:
-      - master
-    networks:
-      vpcbr:
-        ipv4_address: 172.20.0.14
-
-networks:
-  vpcbr:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
-          gateway: 172.20.0.1
+    extra_hosts: [ "salt:${MASTER_IP}" ]
+    network_mode: bridge
